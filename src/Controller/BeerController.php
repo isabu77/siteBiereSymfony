@@ -39,32 +39,33 @@ class BeerController extends AbstractController
      * @Route("/beer/new", name="form")
      * @Route("/beer/{id}/edit", name="beer_edit")
      */
-    public function form(Request $request, ObjectManager $manager, Beer $Beer = null)
+    public function form(Request $request, ObjectManager $manager, Beer $beer = null)
     {
         // méthode utilisée pour l'ajout et l'édition 
-        if (!$Beer) {
-            $Beer = new Beer();
+        if (!$beer) {
+            $beer = new Beer();
             $title = "Nouvelle Bière";
         }
         else{
-            $title = "Edition de la bière n° ". $Beer->getId();
+            $title = "Edition de la bière n° ". $beer->getId();
         }
         // 3ème méthode symfony (la meilleure): 
         // à partir du type de formulaire associé à l'entity Beer
         // par la commande : php bin/console make:form BeerType Beer
-        $form = $this->createForm(BeerType::class, $Beer);
+        $form = $this->createForm(BeerType::class, $beer);
+
         // traitement du formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // en création : pas d'id
-            if (!$Beer->getId()) {
-                $Beer->setSlug(rand());
+            if (!$beer->getId()) {
+                $beer->setSlug(rand());
             }
             // ajout dans la base :
-            $manager->persist($Beer);
+            $manager->persist($beer);
             $manager->flush();
             // redirection sur la vue de l'Beer
-            return $this->redirectToRoute('beer_show', ['id' => $Beer->getId()]);
+            return $this->redirectToRoute('beer_show', ['id' => $beer->getId()]);
         }
         return $this->render('beer/form.html.twig', [
             'controller_name' => 'beerController',
@@ -73,17 +74,30 @@ class BeerController extends AbstractController
         ]);
     }
 
-        /**
-     * @Route("/beer/show/{id}", name="beer_show")
+    /**
+     * @Route("/beer/{id}/show", name="beer_show")
      */
-    public function show(Beer $Beer)
+    public function show(Beer $beer)
     {
         $title = "Beer";
         return $this->render('beer/show.html.twig', [
             'controller_name' => 'BeerController',
-            'biere' => $Beer,
+            'biere' => $beer,
             'title' => $title
         ]);
+    }
+
+    /**
+     * @Route("/beer/{id}/delete", name="beer_delete")
+     */
+    public function delete(ObjectManager $manager, Beer $beer)
+    {
+        // suppression de la base :
+        $manager->remove($beer);
+        $manager->flush();
+
+        // redirection sur la vue de la boutique
+        return $this->redirectToRoute('shop');
     }
 
 
