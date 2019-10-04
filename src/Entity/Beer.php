@@ -122,4 +122,22 @@ class Beer
 
         return $this;
     }
+
+        /**
+     *  prix ht
+     *  @return string
+     **/
+    public function getPrixHt(): string
+    {
+        return (string) number_format($this->price_ht, 2, ',', ' ') . '€';
+    }
+    /**
+     *  prix
+     *  @return string
+     **/
+    public function getPrixTTC(): string
+    {
+        return (string) number_format($this->price_ht * 1.2, 2, ',', ' ') . '€';
+    }
+
 }

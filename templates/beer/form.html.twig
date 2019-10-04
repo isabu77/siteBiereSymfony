@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %} {% block title %}{{title}}{% endblock %} {% block body %}
+
+<h1>{{title}}</h1>
+{{ form_start(formBeer)}}
+<div class="form-group">
+    {{form_row(formBeer.title, { 'label' : 'Nom Bière', 'attr' : {'class' : 'form-control'} })}}
+</div>
+<div class="form-group">
+    {{form_row(formBeer.content, { 'label' : 'Contenu', 'attr' : {'class' : 'form-control'} })}}
+</div>
+<div class="form-group">
+    {{form_row(formBeer.img, { 'label' : 'Image', 'attr' : {'class' : 'form-control'} })}}
+</div>
+<div class="form-group">
+    {{form_row(formBeer.price_ht, { 'label' : 'Prix HT', 'attr' : {'class' : 'form-control'} })}}
+</div>
+<div class="form-group">
+    {{form_row(formBeer.stock, { 'label' : 'Stock', 'attr' : {'class' : 'form-control'} })}}
+</div>
+<div class="form-group">
+    {{form_row(formBeer.Sauvegarder, { 'attr' : {'class' : 'btn btn-success'} })}}
+</div>
+{{ form_end(formBeer)}} {% endblock %}

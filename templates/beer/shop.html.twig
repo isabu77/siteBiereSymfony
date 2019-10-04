@@ -10,6 +10,14 @@
                     <img class="w-25" src="{{biere.img}}" alt="{{biere.title}}" />
                 </div>
                 <p class="text-truncate">{{biere.content}}</p>
+            <div class="row justify-content-between card-footer text-muted">
+                <p class="text-right">Prix HT: {{biere.getPrixHt}}</p>
+                <p class="text-right">Prix TTC: {{biere.getPrixTTC}}</p>
+            </div>
+            <div class="row justify-content-between card-footer text-muted">
+                <a href="{{path('beer_show', {'id': biere.id})}}">en savoir plus</a>  
+                <a href="{{path('beer_edit', {'id': biere.id})}}">éditer</a>
+            </div>
             </div>
         </article>
         {% endfor %}
