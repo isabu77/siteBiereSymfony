@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %} {% block title %}Connexion{% endblock %} {% block body %}
+<section class="container h-100 d-flex align-items-center justify-content-center" style="height: 100vh">
+    <form action="{{ path('security_login') }}" method="POST" class="d-flex flex-column">
+        <h1 class="h3">CONNEXION</h1>
+        <input type="text" placeholder="Adresse Email" name="_username">
+        <input type="text" placeholder="Mot de passe" name="_password">
+        <button type="submit" class="btn btn-primary">Connexion</button>
+    </form>
+</section>
+{% endblock %}
